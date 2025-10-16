@@ -1,5 +1,9 @@
 FROM openjdk:17-jdk-slim
+
 WORKDIR /app
-COPY application.java /app/Application.java
+COPY Application.java .
 RUN javac Application.java
-CMD ["java", "Application"]
+
+# Keep Java app running in background
+CMD java Application & \
+    python3 -m http.server 8080
